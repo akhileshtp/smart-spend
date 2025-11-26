@@ -1,42 +1,34 @@
 {
-  "name": "smart-spend-angular",
+  "name": "smart-spend-ai",
   "version": "1.0.0",
-  "scripts": {
-    "ng": "ng",
-    "config-env": "node scripts/set-env.js",
-    "start": "npm run config-env && ng serve",
-    "build": "npm run config-env && ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test"
-  },
   "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
   "dependencies": {
-    "@angular/animations": "^19.0.0",
-    "@angular/common": "^19.0.0",
-    "@angular/compiler": "^19.0.0",
-    "@angular/core": "^19.0.0",
-    "@angular/forms": "^19.0.0",
-    "@angular/platform-browser": "^19.0.0",
-    "@angular/platform-browser-dynamic": "^19.0.0",
-    "@angular/router": "^19.0.0",
-    "@google/genai": "^0.0.2",
-    "lucide-angular": "^0.468.0",
-    "marked": "^12.0.0",
-    "rxjs": "~7.8.0",
-    "tslib": "^2.3.0",
-    "uuid": "^9.0.0",
-    "zone.js": "~0.15.0"
+    "@google/genai": "^0.1.1",
+    "clsx": "^2.1.0",
+    "lucide-react": "^0.344.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-markdown": "^9.0.1",
+    "recharts": "^2.12.0",
+    "tailwind-merge": "^2.2.0",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^19.0.0",
-    "@angular/cli": "^19.0.0",
-    "@angular/compiler-cli": "^19.0.0",
-    "@tailwindcss/typography": "^0.5.15",
-    "@types/node": "^18.0.0",
-    "@types/uuid": "^9.0.0",
-    "autoprefixer": "^10.4.0",
-    "postcss": "^8.4.0",
-    "tailwindcss": "^3.4.0",
-    "typescript": "~5.5.0"
+    "@tailwindcss/typography": "^0.5.10",
+    "@types/react": "^18.2.56",
+    "@types/react-dom": "^18.2.19",
+    "@types/uuid": "^9.0.8",
+    "@vitejs/plugin-react": "^4.2.1",
+    "autoprefixer": "^10.4.17",
+    "postcss": "^8.4.35",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.2.2",
+    "vite": "^5.1.4"
   }
 }
