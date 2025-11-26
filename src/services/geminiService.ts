@@ -10,20 +10,26 @@ Format your response using Markdown.
 `;
 
 export const analyzeFinances = async (transactions: Transaction[]): Promise<string> => {
-  const apiKey = import.meta.env.VITE_API_KEY;
-
-  if (!apiKey) {
-    return "API Key is missing. Please check your Vercel Environment Variables (VITE_API_KEY).";
-  }
+  // API Key is obtained exclusively from process.env.API_KEY as per guidelines.
+  // The application must not ask the user for it or check for it with UI prompts.
 
   if (transactions.length === 0) {
     return "I need some transaction data to provide insights. Please add some income or expenses first!";
   }
 
-  const dataSummary = JSON.stringify(transactions);
+  // Optimize payload: only send necessary fields
+  const simplifiedData = transactions.map(t => ({
+    amount: t.amount,
+    type: t.type,
+    category: t.category,
+    date: t.date,
+    description: t.description
+  }));
+
+  const dataSummary = JSON.stringify(simplifiedData);
 
   try {
-    const ai = new GoogleGenAI({ apiKey: apiKey });
+    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
     
     const response = await ai.models.generateContent({
       model: 'gemini-2.5-flash',
