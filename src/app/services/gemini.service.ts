@@ -11,10 +11,15 @@ export class GeminiService {
 
   constructor() {
     // Use the environment variable injected by the build script
-    this.ai = new GoogleGenAI({ apiKey: environment.apiKey });
+    // Fallback to empty string to prevent constructor crash, but calls will fail if empty
+    this.ai = new GoogleGenAI({ apiKey: environment.apiKey || 'MISSING_KEY' });
   }
 
   async analyzeFinances(transactions: Transaction[]): Promise<string> {
+    if (!environment.apiKey) {
+      return "API Key is missing. Please check your deployment configuration.";
+    }
+
     if (transactions.length === 0) {
       return "I need some transaction data to provide insights. Please add some income or expenses first!";
     }
@@ -34,7 +39,6 @@ export class GeminiService {
         `,
         config: {
           systemInstruction: 'You are a helpful personal finance advisor.',
-          thinkingConfig: { thinkingBudget: 0 }
         }
       });
 

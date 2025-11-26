@@ -25,15 +25,24 @@ export class TransactionService {
   readonly balance = computed(() => this.totalIncome() - this.totalExpense());
 
   constructor() {
-    // Load from LocalStorage on init
-    const saved = localStorage.getItem('smartspend_transactions');
-    if (saved) {
-      this.transactions.set(JSON.parse(saved));
+    // Load from LocalStorage on init (only in browser)
+    if (typeof localStorage !== 'undefined') {
+      const saved = localStorage.getItem('smartspend_transactions');
+      if (saved) {
+        try {
+          this.transactions.set(JSON.parse(saved));
+        } catch (e) {
+          console.error('Failed to parse transactions', e);
+        }
+      }
     }
 
     // Save to LocalStorage whenever transactions change
     effect(() => {
-      localStorage.setItem('smartspend_transactions', JSON.stringify(this.transactions()));
+      const data = JSON.stringify(this.transactions());
+      if (typeof localStorage !== 'undefined') {
+        localStorage.setItem('smartspend_transactions', data);
+      }
     });
   }
 

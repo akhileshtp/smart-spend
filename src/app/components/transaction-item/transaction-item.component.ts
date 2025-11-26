@@ -22,9 +22,8 @@ import { Transaction, TransactionType, CATEGORY_COLORS } from '../../models/tran
         </div>
       </div>
       <div class="flex items-center gap-3">
-        <!-- Escaped dollar sign to prevent TypeScript interpolation error -->
         <span class="font-bold text-sm" [class.text-red-400]="isExpense" [class.text-emerald-400]="!isExpense">
-          {{ isExpense ? '-' : '+' }}\${{ item.amount | number:'1.2-2' }}
+          {{ isExpense ? '-' : '+' }}<span>$</span>{{ item.amount | number:'1.2-2' }}
         </span>
         <button 
           (click)="onDelete.emit(item.id)"

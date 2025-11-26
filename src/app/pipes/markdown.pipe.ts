@@ -8,7 +8,11 @@ import { marked } from 'marked';
 export class MarkdownPipe implements PipeTransform {
   async transform(value: string | null): Promise<string> {
     if (!value) return '';
-    // marked.parse can be sync or async depending on options, but treating as promise is safer for future-proofing
-    return marked.parse(value) as string;
+    const result = marked.parse(value);
+    // Newer marked versions might return a Promise, handle both cases
+    if (result instanceof Promise) {
+      return await result;
+    }
+    return result;
   }
 }
