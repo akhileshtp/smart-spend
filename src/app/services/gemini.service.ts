@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { GoogleGenAI } from '@google/genai';
 import { Transaction } from '../models/transaction.model';
-
-declare var process: any;
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +10,8 @@ export class GeminiService {
   private ai: GoogleGenAI;
 
   constructor() {
-    // API Key must be obtained from process.env.API_KEY per guidelines
-    this.ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    // Use the environment variable injected by the build script
+    this.ai = new GoogleGenAI({ apiKey: environment.apiKey });
   }
 
   async analyzeFinances(transactions: Transaction[]): Promise<string> {
