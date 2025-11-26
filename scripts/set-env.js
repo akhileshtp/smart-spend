@@ -4,9 +4,17 @@ const path = require('path');
 // Load API key from Vercel/System environment variables
 const apiKey = process.env.API_KEY || '';
 
-const targetPath = path.join(__dirname, '../src/environments/environment.ts');
-const targetPathProd = path.join(__dirname, '../src/environments/environment.prod.ts');
+// Define paths
+const envDirectory = path.join(__dirname, '../src/environments');
+const targetPath = path.join(envDirectory, 'environment.ts');
+const targetPathProd = path.join(envDirectory, 'environment.prod.ts');
 
+// Ensure the directory exists
+if (!fs.existsSync(envDirectory)) {
+  fs.mkdirSync(envDirectory, { recursive: true });
+}
+
+// Create the content
 const envFileContent = `
 export const environment = {
    production: true,
@@ -14,7 +22,7 @@ export const environment = {
 };
 `;
 
-// Write the file
+// Write the files
 fs.writeFileSync(targetPath, envFileContent);
 fs.writeFileSync(targetPathProd, envFileContent);
 
