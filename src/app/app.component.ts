@@ -77,7 +77,7 @@ import { GeminiService } from './services/gemini.service';
 
           <app-transaction-item 
             *ngFor="let tx of ts.transactions().slice(0, 5)" 
-            [transaction]="tx" 
+            [item]="tx" 
             (onDelete)="ts.deleteTransaction($event)">
           </app-transaction-item>
         </div>
@@ -93,7 +93,7 @@ import { GeminiService } from './services/gemini.service';
             <h3 class="text-lg font-bold text-slate-200 mb-4">History</h3>
             <app-transaction-item 
               *ngFor="let tx of ts.transactions()" 
-              [transaction]="tx" 
+              [item]="tx" 
               (onDelete)="ts.deleteTransaction($event)">
             </app-transaction-item>
           </div>
@@ -133,7 +133,7 @@ import { GeminiService } from './services/gemini.service';
                 <lucide-icon name="message-square-quote" [size]="24"></lucide-icon>
                 <h3 class="text-lg font-bold">Analysis Report</h3>
             </div>
-            <div class="prose prose-invert prose-sm max-w-none text-slate-300" [innerHTML]="analysis | markdown"></div>
+            <div class="prose prose-invert prose-sm max-w-none text-slate-300" [innerHTML]="analysis | markdown | async"></div>
             <button 
                 (click)="analysis = null"
                 class="mt-6 text-sm text-slate-500 hover:text-white underline"

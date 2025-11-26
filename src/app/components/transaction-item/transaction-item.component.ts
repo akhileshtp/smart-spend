@@ -17,16 +17,16 @@ import { Transaction, TransactionType, CATEGORY_COLORS } from '../../models/tran
           <lucide-icon [name]="isExpense ? 'arrow-up-right' : 'arrow-down-left'" [size]="20"></lucide-icon>
         </div>
         <div>
-          <h3 class="text-sm font-semibold text-slate-100">{{ transaction.description }}</h3>
-          <p class="text-xs text-slate-400">{{ transaction.category }} • {{ transaction.date | date:'MMM d' }}</p>
+          <h3 class="text-sm font-semibold text-slate-100">{{ item.description }}</h3>
+          <p class="text-xs text-slate-400">{{ item.category }} • {{ item.date | date:'MMM d' }}</p>
         </div>
       </div>
       <div class="flex items-center gap-3">
         <span class="font-bold text-sm" [class.text-red-400]="isExpense" [class.text-emerald-400]="!isExpense">
-          {{ isExpense ? '-' : '+' }}\${{ transaction.amount | number:'1.2-2' }}
+          {{ isExpense ? '-' : '+' }}${{ item.amount | number:'1.2-2' }}
         </span>
         <button 
-          (click)="onDelete.emit(transaction.id)"
+          (click)="onDelete.emit(item.id)"
           class="text-slate-600 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity p-1"
         >
           <lucide-icon name="trash-2" [size]="16"></lucide-icon>
@@ -36,14 +36,14 @@ import { Transaction, TransactionType, CATEGORY_COLORS } from '../../models/tran
   `
 })
 export class TransactionItemComponent {
-  @Input({ required: true }) transaction!: Transaction;
+  @Input({ required: true }) item!: Transaction;
   @Output() onDelete = new EventEmitter<string>();
 
   get isExpense(): boolean {
-    return this.transaction?.type === TransactionType.EXPENSE;
+    return this.item?.type === TransactionType.EXPENSE;
   }
 
   getCategoryColor(): string {
-    return this.transaction ? CATEGORY_COLORS[this.transaction.category] : '#fff';
+    return this.item ? CATEGORY_COLORS[this.item.category] : '#fff';
   }
 }
