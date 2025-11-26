@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule } from 'lucide-angular';
-import { MarkdownComponent } from 'ngx-markdown';
+import { MarkdownPipe } from './pipes/markdown.pipe';
 
 // Components
 import { TransactionItemComponent } from './components/transaction-item/transaction-item.component';
@@ -21,7 +21,7 @@ import { GeminiService } from './services/gemini.service';
     TransactionItemComponent, 
     AddModalComponent,
     DonutChartComponent,
-    MarkdownComponent
+    MarkdownPipe
   ],
   template: `
     <div class="min-h-screen bg-slate-900 text-slate-100 font-sans selection:bg-indigo-500/30">
@@ -133,9 +133,7 @@ import { GeminiService } from './services/gemini.service';
                 <lucide-icon name="message-square-quote" [size]="24"></lucide-icon>
                 <h3 class="text-lg font-bold">Analysis Report</h3>
             </div>
-            <div class="prose prose-invert prose-sm max-w-none text-slate-300">
-                <markdown [data]="analysis"></markdown>
-            </div>
+            <div class="prose prose-invert prose-sm max-w-none text-slate-300" [innerHTML]="analysis | markdown"></div>
             <button 
                 (click)="analysis = null"
                 class="mt-6 text-sm text-slate-500 hover:text-white underline"
